@@ -2,7 +2,7 @@
 
 ====================================
 Unix/Ubuntu Bash Notes & Cheat Sheet 
-====================================
+
 Notes last updated: 7.26.2023
 
 
