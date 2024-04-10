@@ -1,9 +1,5 @@
-# UbuntuNotes.txt
-
-
-
 # Unix/Ubuntu Bash Notes & Cheat Sheet 
-Notes last updated: 7.26.2023
+Notes last updated: 4.10.2024
 
 
 # NETWORK INTERFACE INFO 
@@ -13,12 +9,15 @@ Network Interface Information
 ip addr show
 ```
 
-Command ip a 
-   info: show all ip info 
+show all ip info 
+```
+ip a
+``` 
 
-Command: ifconfig 
-   Info: requires net-utils is installed
-
+Show ip info - requires net-utils is installed
+ ```
+ifconfig 
+```
 
 
 ================
