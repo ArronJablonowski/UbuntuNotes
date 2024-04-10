@@ -2,15 +2,13 @@
 
 
 
-Unix/Ubuntu Bash Notes & Cheat Sheet 
-====================================
-
+# Unix/Ubuntu Bash Notes & Cheat Sheet 
 Notes last updated: 7.26.2023
 
 
-NETWORK INTERFACE INFO 
-======================
-# Network Interface Information   
+# NETWORK INTERFACE INFO 
+
+Network Interface Information   
 ``` 
 ip addr show
 ```
