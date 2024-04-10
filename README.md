@@ -10,7 +10,7 @@ Notes last updated: 7.26.2023
 
 NETWORK INTERFACE INFO 
 ======================
-Info: # Network Interface Information   
+# Network Interface Information   
 ``` 
 ip addr show
 ```
