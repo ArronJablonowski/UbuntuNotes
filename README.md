@@ -11,7 +11,7 @@ Notes last updated: 7.26.2023
 NETWORK INTERFACE INFO 
 ======================
 Command: ip addr show
-   Info: # Network Interface Information   
+Info: # Network Interface Information   
 
 Command ip a 
    info: show all ip info 
