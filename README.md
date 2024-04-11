@@ -3,7 +3,6 @@ Notes last updated: 4.10.2024
 
 
 # NETWORK INTERFACE INFO 
-
 Network Interface Information   
 ``` 
 ip addr show
@@ -19,46 +18,54 @@ Show ip info - requires net-utils is installed
 ifconfig 
 ```
 
+# NETSTAT COMMANDS
+* requires "net-tools" to be installed  (sudo apt install -y net-tools)
 
-================
-NETSTAT COMMANDS
-================
-Command: netstat -apnvtu
-   Info: closest to netstat-naob on windows 
+closest to netstat-naob on windows 
+```
+netstat -apnvtu
+```
 
-Command: sudo netstat -tup
-   Info: 
+```
+sudo netstat -tup
+```
 
-Command: netstat -nao
-   Info: # requires "net-tools" to be installed  (sudo apt install -y net-tools)
+```
+netstat -nao
+```
 
-Command: netstat -apnvtuc
-   Info: add 'c' for continuos. Add grep to watch for a connection 
+add 'c' for continuos. Add grep to watch for a connection
+```
+netstat -apnvtuc
+``` 
 
-Command: netstat -A inet -pc 
-   Info: get a live list of processes & network connections. Remove 'c' to get a static list. 
+get a live list of processes & network connections. Remove 'c' to get a static list. 
+```
+netstat -A inet -pc
+```
 
+# RUNNING PROCESSES
+show running process
+```
+ ps aux
+```
 
+# List Open Files - (Handles) 
+ Show list of open handles
+```
+lsof
+```
 
-=================
-RUNNING PROCESSES
-=================
-Command: ps aux 
-   INfo: show running process
+list open files with network connections
+```
+lsof -i
+```
 
-
-
-===========================
-List Open Files - (Handles) 
-===========================
-Command: lsof 
-   Info: Show list of open handles
-
-Command: lsof -i 
-   Info: list open files with network connections
+List open files that are completely unlinked   
+```
+lsof +L1
+```
    
-Command: lsof +L1
-   Info: List open files that are completely unlinked
 
 
 ==============
