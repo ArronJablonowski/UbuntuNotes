@@ -18,6 +18,7 @@ Show ip info - requires net-utils is installed
 ifconfig 
 ```
 
+
 # NETSTAT COMMANDS
 * requires "net-tools" to be installed  (sudo apt install -y net-tools)
 
@@ -44,11 +45,13 @@ get a live list of processes & network connections. Remove 'c' to get a static l
 netstat -A inet -pc
 ```
 
+
 # RUNNING PROCESSES
 show running process
 ```
  ps aux
 ```
+
 
 # List Open Files - (Handles) 
  Show list of open handles
@@ -65,107 +68,133 @@ List open files that are completely unlinked
 ```
 lsof +L1
 ```
+
    
+# KILL PROCESSES
+Kill multi processes at once 
+```
+pgrep <processName> | xargs kill
+```
 
-
-==============
-KILL PROCESSES
-==============
-Command: pgrep <processName> | xargs kill
-   Info: Kill multi processes at once 
-
-Command: killall -9 <mattermost-desktop>
-   Info: Kill multi processes at once by name 
-
-Command: Kill -9 <pid>
-   Info: kill a process by its pid 
+Kill multi processes at once by name
+```
+killall -9 <mattermost-desktop>
+```
+ 
+kill a process by its pid 
+```
+ Kill -9 <pid>
+```
 Example: kill -9 7154 7192 7210 7227 10248 10296 10386 10391 10405 10422
 
-Command: killall -u <username> 
-   Info: kill all processes by a user 
-Example: killall -u ajablonow
+kill all processes by a user 
+```
+killall -u <username>
+```
+Example: killall -u user1
 
 
-====================
-SUDO Access per User 
-====================
-Command: sudo deluser USERNAME sudo    
-   Info: Remove the user from the sudo group 
+# SUDO Access per User 
+Remove the user from the sudo group 
+```
+sudo deluser USERNAME sudo
+```
 
-Command: sudo usermod -aG sudo $UserName
-   Info: Grant a user SUDO access 
-
-
-
-==================
-LIST STARTUP ITEMS
-==================
-Command: ls -la /etc/init
-   Info: 
-
-Command: ls -la /etc/init.conf
-   Info:
-
-Command: ls -la /etc/rc.d
-   Info:
-
-Command: ls -la /etc/init.d
-   Info: 
-
-Command: cat /etc/inittab
-   Info: 
+Grant a user SUDO access    
+```
+sudo usermod -aG sudo $UserName
+```
 
 
+# LIST STARTUP ITEMS
 
-==============
-LIST CRON JOBS 
-==============
+```
+ls -la /etc/init
+```
+
+```
+ ls -la /etc/init.conf
+```
+
+```
+ls -la /etc/rc.d
+```
+   
+
+```
+ls -la /etc/init.d
+```
+   
+
+```
+cat /etc/inittab
+```
+
+
+#LIST CRON JOBS 
    LIST Crons: 
-        cat /etc/crontab
-        ls -la /etc/cron.monthly/
-        ls -la /etc/cron.weekly/
-        ls -la /etc/cron.daily/
-        ls -la /etc/cron.hourly/
+ ```
+cat /etc/crontab
+```
+```
+ls -la /etc/cron.monthly/
+```
+```
+ls -la /etc/cron.weekly/
+```
+```
+ls -la /etc/cron.daily/
+```
+```
+ls -la /etc/cron.hourly/
+```
+
+# LIST INSTALLED APPS   
+List apps installed via snap 
+```
+snap list
+```
+
+list installed apps via apt 
+```
+apt list --installed
+```
 
 
+```
+grep " install " /var/log/apt/history.log
+```
 
-===================
-LIST INSTALLED APPS   
-===================
-Command: snap list
-   Info: List apps installed via snap 
+```
+grep " install " /var/log/dpkg.log
+```
 
-Command: apt list --installed
-   Info: list installed apps via apt 
+```
+sudo dpkg --get-selections | grep -v deinstall
+```
 
-Command: grep " install " /var/log/apt/history.log
-   Info: 
 
-Command: grep " install " /var/log/dpkg.log
-   Info: 
+# Searching Finding & Sorting
+
+```
+ grep
+```
    
-Command: sudo dpkg --get-selections | grep -v deinstall
-
-
-
-===========================
-Searching Finding & Sorting
-===========================
-
-Command: grep  
-   Info: 
-   
-Command: zgrep 
-   Info: 
-
-Command: egrep  
-   Info: 
+```
+zgrep
+```
+ 
+```
+egrep
+```
 Example: egrep -ir --include=*.{docx} "jacking"
          egrep -ir --include=*.{html} "jacking"
          egrep -ir --include=*.{html} "clickjacking"
 
-Command: find 
-   Info: use 'find' to find a file on a unix system. 
+use 'find' to find a file on a unix system. 
+```
+find
+```
 Example: find ./ -type f -name "*.cert"
          find . -type f -name ".html"
          find . -type f -name "*.html"
@@ -178,113 +207,111 @@ Example: find ./ -type f -name "*.cert"
          find ~/ -iname "* sSn*" 
 
 
+# LIST MOUNTED FILES, DRIVES, Block Devices
+List all mounted files and drives 
+```
+ls -lat /mnt
+```
 
-=========================================
-LIST MOUNTED FILES, DRIVES, Block Devices
-=========================================
-Command: ls -lat /mnt   
-   Info: # List all mounted files and drives 
+List all File Systems    
+```
+df -h | grep -v snap
+```
 
-Command: df -h | grep -v snap 
-   info: List all File Systems 
-
-Command: lsblk 
-   info: list info about block devices 
+list info about block devices 
+```
+lsblk
+```
    
-Command: sudo blkid -o value -s TYPE ./sda3.dd-ptcl-img
-   info: List the FileSystem Type of an img file. 'blkid' - will return the fs type or nothing if it's raw data 
+List the FileSystem Type of an img file. 'blkid' - will return the fs type or nothing if it's raw data   
+```
+sudo blkid -o value -s TYPE ./sda3.dd-ptcl-img
+``` 
 Dependant: sudo apt-get install vmfs-tools -- ESXi datastores use VMware’s proprietary VMFS filesystem.
 
 
-============================================
-MOUNT/UNMOUNT IMGAGES, DRIVES, BLOCK DEVICES
-============================================
-sudo losetup -f -P ./L300716.img
+# MOUNT/UNMOUNT IMGAGES, DRIVES, BLOCK DEVICES
+```
+sudo losetup -f -P ./img.dd
+```
+```
 sudo losetup --detach /dev/loop2
+```
 https://askubuntu.com/questions/483009/mounting-disk-image-in-raw-format
 
 
-=================
-Archives and Zips
-=================
-Command: zip  
-   Info: 
-Example: zip --encrypt L120161.zip ./L120161
-         zip -er L120161.zip ./L120161
+# Archives and Zips
+```
+zip
+```
+Example: zip --encrypt zipArchive.zip ./file
+         zip -er File.zip ./File
 
-Command: 
-   Info: 
-Example:     
+```
+7z x
+```
 
-Command: 
-   Info: 
-Example:
-
-Command: 
-   Info: 
-Example:
-
-Command: 
-   Info: 
-Example:
+```
+7z a
+```
 
 
+# clamscan - ClamAV
+```
+clamscan -r -i ./
+```
 
-=================
-clamscan - ClamAV
-=================
-Command: clamscan -r -i ./ 
-   Info: 
+```
+clamscan -r --remove /media/ajablonow/SOCTeam/
+```
+   
 
-Command: clamscan -r --remove /media/ajablonow/SOCTeam/
-   Info: 
+```
+clamscan -r -i --bell ./
+```
+   
 
-Command:clamscan -r -i --bell ./
-   Info: 
+```
+freshclam
+```
 
-Command: freshclam
-   Info:
-
-
-
-==============
-UFW - FIREWALL
-==============
+# UFW - FIREWALL
       https://www.digitalocean.com/community/tutorials/how-to-setup-a-firewall-with-ufw-on-an-ubuntu-and-debian-cloud-server
       sudo aptitude install ufw
       sudo ufw status
       IPV6 - https://itsfoss.com/disable-ipv6-ubuntu-linux/
 
 
-
-
-==================
-SSH & SSH Keypairs
-==================
+# SSH & SSH Keypairs
 The order of precedence for SSH config is as follows:
   1. Command-line arguments
   2. User config file (`~/.ssh/config`)
   3. System config file (`/etc/ssh/ssh_config`)
 
-
 Resourses:
    Setup - https://www.ssh.com/ssh/public-key-authentication
    ciphers - https://infosec.mozilla.org/guidelines/openssh.html
 
-# Disable password logins on server (optional )
+* Disable password logins on server (optional)
     sudo nano /etc/ssh/sshd_config
         # Change to no to disable tunnelled clear text passwords
             #PasswordAuthentication yes
         Uncomment the second line, and, if needed, change yes to no.
             PasswordAuthentication no 
-         
-Command: 
-	ssh-keygen -t ed25519 -f ~/.ssh/your-key-filename -C "your-key-comment"
-	ssh-keygen -f ./keyName_alg -t ecdsa -b 521
-   Info: Generate an SSH Key (both pub/priv).
 
+Generate an SSH Key (both pub/priv).	 
+```
+ssh-keygen -t ed25519 -f ~/.ssh/your-key-filename -C "your-key-comment"
+```
+Generate an SSH Key (both pub/priv).
+```
+ssh-keygen -f ./keyName_alg -t ecdsa -b 521
+```
+
+add public key to user's authorized_keys file
+```
 Command: ssh-copy-id -i ./keyName_alg.pub User@host 
-   Info: add public key to user's authorized_keys file 
+```
  
 Command: ssh-add ~/.ssh/path/to/privkey
    Info: add a private key to the ssh-agent
