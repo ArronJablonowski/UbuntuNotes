@@ -334,7 +334,7 @@ setfacl -m user:tom:rwx /home/samantha/folder
 ```
 ```
 Permissions Guide: USER-GROUP-ALL 
-Number	Permission Type	      Symbol
+Number	     Permission Type	      Symbol
 0	      No Permission	         ===
 1	      Execute	                 --x
 2	      Write	                 -w-
