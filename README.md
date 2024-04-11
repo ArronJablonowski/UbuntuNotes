@@ -310,27 +310,29 @@ ssh-keygen -f ./keyName_alg -t ecdsa -b 521
 
 add public key to user's authorized_keys file
 ```
-Command: ssh-copy-id -i ./keyName_alg.pub User@host 
+ssh-copy-id -i ./keyName_alg.pub User@host 
 ```
- 
-Command: ssh-add ~/.ssh/path/to/privkey
-   Info: add a private key to the ssh-agent
 
-.ssh permissions 
+add a private key to the ssh-agent 
+```
+ssh-add ~/.ssh/path/to/privkey
+```
+
+.ssh permissions    
+```
     chmod 700 $HOME/.ssh 
     chmod 644 ~/.ssh/authorized_keys
     chmod 644 ~/.ssh/pulic_key.pub
     chmod 600 ~/.ssh/private_key #If Keys need to be read-writable by you
     chmod 400 ~/.ssh/private_key #Keys need to be only readable by you.
+```
 
-
-
-=============================
-POSIX ACLs & File Permissions
-=============================
-Command: setfacl -m user:tom:rwx /home/samantha/folder
-   Info: Give tom access to folder     
-
+# POSIX ACLs & File Permissions
+Give tom access to folder     
+```
+setfacl -m user:tom:rwx /home/samantha/folder
+```
+```
 Permissions Guide: USER-GROUP-ALL 
 Number	Permission Type	      Symbol
 0	      No Permission	         ===
@@ -346,34 +348,33 @@ r = read permission
 w = write permission
 x = execute permission
 - = no permission
-
+```
 LINK: https://www.guru99.com/file-permissions.html
 
+# Lynis Audit - Security check 
+```
+sudo lynis audit system | tee ~/lynis_output_log.txt && sudo cp /var/log/lynis.log ~/lynis.log && sudo chown ajablonow:ajablonow ~/lynis.log
+```
 
+# System Checks
+Check if IPv6 is enabled 
+```
+cat /sys/module/ipv6/parameters/disable
+```
 
-============================
-Lynis Audit - Security check 
-============================
-Command: sudo lynis audit system | tee ~/lynis_output_log.txt && sudo cp /var/log/lynis.log ~/lynis.log && sudo chown ajablonow:ajablonow ~/lynis.log
+Check if IPv6 is enabled (prefered) 
+```
+sysctl -a 2>/dev/null | grep disable_ipv6
+```
 
-
-=============
-System Checks
-=============
-
-Command: cat /sys/module/ipv6/parameters/disable
-Info: Check if IPv6 is enabled 
-
-Command: sysctl -a 2>/dev/null | grep disable_ipv6
-Info: Check if IPv6 is enabled (**prefered) 
-
-================
-Check Desktop UI
-================
-echo $XDG_SESSION_TYPE  ## echo the current UI 
+# Check Desktop UI
+```
+echo $XDG_SESSION_TYPE  ## echo the current UI
+```
+```
 sudo nano /etc/gdm3/custom.conf
 	uncomment "#WaylandEnable=false"
-
+```
 
 
 <=================================================================================================================>
@@ -407,23 +408,22 @@ GIT Packages
         git clone https://github.com/dafthack/DomainPasswordSpray.git
         
 
-<===================================================================================>
-    ===============-
-    LOGS & Locations  
-    ===============-
-    
+# LOGS & Locations  
+```    
 #cron logs 
     cat /var/log/cron.log
     cat /var/log/sudo.log 
     cat /var/log/messages 
-
+```
+```
 #mail server logs 
     cat /var/log/maillog
-
+```
+```
 #kernal logs 
     cat /var/log/kern.log
     cat /var/log/auth.log 
-
+```
 #apache access and error logs directory 
 la -la /var/log/httpd/
 
