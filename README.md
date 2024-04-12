@@ -66,7 +66,7 @@ List open files that are completely unlinked
 lsof +L1
 ```
 
-Info: Investigate a discovered PID in more depth 
+Investigate a PID in-depth 
 ```
 lsof –p [pid]
 ```
@@ -77,28 +77,31 @@ Kill multi processes at once
 pgrep <processName> | xargs kill
 ```
 
-PKill
+Kill a process using its name. 
 ```
-pkill
+pkill -9 <gedit>
 ```
 
 Kill multi processes at once by name
 ```
-killall -9 <mattermost-desktop>
+killall -9 <gedit>
 ```
  
 kill a process by its pid 
 ```
- Kill -9 <pid>
+ kill -9 <pid>
+```
 ```
 Example: kill -9 7154 7192 7210 7227 10248 10296 10386 10391 10405 10422
+```
 
 kill all processes by a user 
 ```
 killall -u <username>
 ```
+```
 Example: killall -u user1
-
+```
 
 # SUDO Access per User 
 Remove the user from the sudo group 
