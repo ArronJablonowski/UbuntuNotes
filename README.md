@@ -203,6 +203,7 @@ use 'find' to find a file on a unix system.
 ```
 find
 ```
+```
 Example: find ./ -type f -name "*.cert"
          find . -type f -name ".html"
          find . -type f -name "*.html"
@@ -213,7 +214,7 @@ Example: find ./ -type f -name "*.cert"
          find . -type f -name "*.kdbx"
          find ~/ -iname "*.txt" 
          find ~/ -iname "* sSn*" 
-
+```
 
 # LIST MOUNTED FILES, DRIVES, Block Devices
 List all mounted files and drives 
@@ -392,13 +393,13 @@ git clone
 ```
    
 # GIT Packages
-
+```
 git clone https://github.com/sans-blue-team/DeepBlueCLI.git
 git clone https://github.com/elceef/dnstwist.git
 git clone https://github.com/decalage2/oletools.git
 git clone https://github.com/sleuthkit/autopsy.git
 git clone https://github.com/dafthack/DomainPasswordSpray.git
-        
+```        
 
 # LOGS & Locations  
 ```    
