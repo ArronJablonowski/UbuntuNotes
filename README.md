@@ -313,10 +313,10 @@ Resourses:
   ```
   sudo nano /etc/ssh/sshd_config
   ```
-  * Change to no to disable tunnelled clear text passwords
-            #PasswordAuthentication yes
-  * Uncomment the second line, and, if needed, change yes to no.
-            PasswordAuthentication no 
+* Change to no to disable tunnelled clear text passwords
+``` #PasswordAuthentication yes ```
+* Uncomment the second line, and, if needed, change yes to no.
+``` PasswordAuthentication no ```
 
 Generate an SSH Key (both pub/priv).	 
 ```
