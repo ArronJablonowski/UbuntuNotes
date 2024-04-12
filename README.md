@@ -582,19 +582,36 @@ cat /etc/hosts
 ```
 
 # Imaging 
+Write image to disk 
 ```
 sudo dd if=./ubuntu-18.04.4-desktop-amd64.iso of=/dev/sdc
 ```
 
-ls -AlF /var/lib/dpkg/info/
-ll /var/lib/dpkg/info/ | grep -i '.list'
+# Taking a Forensic Image 
+Disable Automounting of Drives (be sure to test non evidence drive) 
+```
+sudo systemctl stop udisks2.service
+```
+Check udisks2 status
+```
+systemctl status udisks2 
+```
+Image evidence drive:
+```
+sudo dd if=/dev/sde of=/dev/sdc status=progress
+-or- 
+sudo dc3dd if=/dev/sde of=/dev/sdc/img/disk.dd hash=md5 hash=sha256 hlog=/path/to/case/imghash.txt log=/path/to/case/img.log progress=on verb=on 
+```
+Hash both image file and disk (if needed) 
+```
+md5sum /dev/sde && md5sum /dev/sdc/disk.dd | tee hash.txt
+sha256sum /dev/sde && md5sum /dev/sdc/disk.dd | tee hash.txt
+```
+Analyze a copy of the image (.dd, .img, etc) 
+ie. a copy of the copy. 
 
-
-pgrep
-
-  313  ip route get ipaddress
-  314  ip route show
-
+# Monitor network usage
+```
 iftop
 
 # Check for updates
