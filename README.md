@@ -235,7 +235,7 @@ List the FileSystem Type of an img file. 'blkid' - will return the fs type or no
 ```
 sudo blkid -o value -s TYPE ./sda3.dd-ptcl-img
 ``` 
-Dependant: sudo apt-get install vmfs-tools -- ESXi datas use VMware’s proprietary VMFS filesystem.
+Dependant: sudo apt-get install vmfs-tools -- ESXi datastores use VMware’s proprietary VMFS filesystem.
 
 
 # MOUNT/UNMOUNT IMGAGES, DRIVES, BLOCK DEVICES
@@ -252,42 +252,51 @@ https://askubuntu.com/questions/483009/mounting-disk-image-in-raw-format
 ```
 zip
 ```
+```
 Example: zip --encrypt zipArchive.zip ./file
          zip -er File.zip ./File
-
 ```
-7z x
+7zip extract archive
 ```
-
+7z x <./archive.7z> 
 ```
-7z a
+7zip create an archive 
 ```
-
+7z a <archive.7z> ./archive
+```
 
 # clamscan - ClamAV
 ```
-clamscan -r -i ./
+clamscan ./file
 ```
-
 ```
-clamscan -r --remove /media/$USER/SOCTeam/
+clamscan -r -i /home
 ```
-   
-
 ```
 clamscan -r -i --bell ./
 ```
+```
+clamscan -r --remove /media/$USER/MalwareFolder/
+```
+```
+clamscan -r --move=/home/$USER/MalwareFolder/
+```
+```
+clamscan -r --copy=/media/$USER/MalwareFolder/ --file-list=$evolutionPathsFile | tee ~/MalwareFolder/logFile.txt
+```
    
-
+Update ClamAV
 ```
 freshclam
 ```
 
 # UFW - FIREWALL
-      https://www.digitalocean.com/community/tutorials/how-to-setup-a-firewall-with-ufw-on-an-ubuntu-and-debian-cloud-server
-      sudo aptitude install ufw
-      sudo ufw status
-      IPV6 - https://itsfoss.com/disable-ipv6-ubuntu-linux/
+https://www.digitalocean.com/community/tutorials/how-to-setup-a-firewall-with-ufw-on-an-ubuntu-and-debian-cloud-server
+```
+sudo aptitude install ufw
+sudo ufw status
+```
+IPV6 - https://itsfoss.com/disable-ipv6-ubuntu-linux/
 
 
 # SSH & SSH Keypairs
@@ -301,10 +310,12 @@ Resourses:
    ciphers - https://infosec.mozilla.org/guidelines/openssh.html
 
 * Disable password logins on server (optional)
-    sudo nano /etc/ssh/sshd_config
-        # Change to no to disable tunnelled clear text passwords
+  ```
+  sudo nano /etc/ssh/sshd_config
+  ```
+  * Change to no to disable tunnelled clear text passwords
             #PasswordAuthentication yes
-        Uncomment the second line, and, if needed, change yes to no.
+  * Uncomment the second line, and, if needed, change yes to no.
             PasswordAuthentication no 
 
 Generate an SSH Key (both pub/priv).	 
