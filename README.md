@@ -265,7 +265,7 @@ clamscan -r -i ./
 ```
 
 ```
-clamscan -r --remove /media/ajablonow/SOCTeam/
+clamscan -r --remove /media/$USER/SOCTeam/
 ```
    
 
@@ -878,7 +878,7 @@ If dealing with multiple files or a directory, zip the contents of the directory
 rsync -v -r -e "ssh pivotgw ssh" {serverip}:/home/{yourUserName}/{FileName} ~/temp/IR
 ```
 ```
-rsync -v -e "ssh pivotgw ssh" 10.16.33.254:/home/ajablonow/someArchive.zip ~/Documents/IR/
+rsync -v -e "ssh pivotgw ssh" 10.16.33.254:/home/$USER/someArchive.zip ~/Documents/IR/
 ```
 
 
