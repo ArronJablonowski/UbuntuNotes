@@ -613,6 +613,7 @@ ie. a copy of the copy.
 # Monitor network usage
 ```
 iftop
+```
 
 # Check for updates
 ```
