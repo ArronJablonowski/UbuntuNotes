@@ -340,11 +340,11 @@ ssh-add ~/.ssh/path/to/privkey
 
 .ssh permissions    
 ```
-    chmod 700 $HOME/.ssh 
-    chmod 644 ~/.ssh/authorized_keys
-    chmod 644 ~/.ssh/pulic_key.pub
-    chmod 600 ~/.ssh/private_key #If Keys need to be read-writable by you
-    chmod 400 ~/.ssh/private_key #Keys need to be only readable by you.
+chmod 700 $HOME/.ssh 
+chmod 644 ~/.ssh/authorized_keys
+chmod 644 ~/.ssh/pulic_key.pub
+chmod 600 ~/.ssh/private_key #If Keys need to be read-writable by you
+chmod 400 ~/.ssh/private_key #Keys need to be only readable by you.
 ```
 
 # POSIX ACLs & File Permissions
