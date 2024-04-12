@@ -126,21 +126,15 @@ sudo usermod -aG sudo $UserName
 ```
 ls -la /etc/init
 ```
-
 ```
 ls -la /etc/init.conf
 ```
-
 ```
 ls -la /etc/rc.d
 ```
-   
-
 ```
 ls -la /etc/init.d
 ```
-   
-
 ```
 cat /etc/inittab
 ```
@@ -162,6 +156,12 @@ ls -la /etc/cron.daily/
 ```
 ls -la /etc/cron.hourly/
 ```
+   
+Info: Look for cron jobs scheduled as root or any other UID 0 accoutns 
+```
+crontab –u root –l
+```
+
 
 # LIST INSTALLED APPS   
 List apps installed via snap 
@@ -220,6 +220,31 @@ Example: find ./ -type f -name "*.cert"
          find ~/ -iname "*.txt" 
          find ~/ -iname "* sSn*" 
 ```
+
+Info: Look for orphaned files, which could be a sign of an attacker's temp account that has been deleted 
+```
+find / -nouser -print
+```
+   
+Info: Look for unusual SUID root files
+```
+find / -uid 0 -perm 4000 -print
+```
+    
+Info: Look for unusually large files (gt 10MB)
+```
+find / -size +10000k –print
+```
+   
+Info: Look for files with dots and spaces, used to camouflage files
+```
+find / -name ".. " –print
+find / -name ". " –print
+find / -name " " –print
+find / -name “ “ –print
+find / -regex '.+[^A-Za-z0-9(+=_-/.,!@#$%^&*~:;)]' -print
+``` 
+
 
 # LIST MOUNTED FILES, DRIVES, Block Devices
 List all mounted files and drives 
@@ -438,70 +463,16 @@ get cpu temps - sudo apt install lm-sensors -y && sudo sensors-detect
 sensors
 ```
 
-Info: Look for orphaned files, which could be a sign of an attacker's temp account that has been deleted 
-```
-find / -nouser -print
-```
+# not sure... 
    
 ```
 nmcli device show <interFaceName> | grep IP4.DNS
 ```
 
-Info: Look at uptime and load average 
-```
-uptime
-```
    
 Info: Look for excesive Memory use 
 ```
 free
-```
-   
-Info: Look at disk usage (minus snaps)
-```
-df -h | grep -vi snap
-```
-   
-Info: Find odd processes running as root user (UID 0)
-```
-ps aux | grep root
-```
-   
-Info: Look for unusual SUID root files
-```
-find / -uid 0 -perm 4000 -print
-```
-    
-Info: Look for unusually large files (gt 10MB)
-```
-find / -size +10000k –print
-```
-   
-Info: Look for files with dots and spaces, used to camouflage files
-```
-Command: find / -name ".. " –print
-Command: find / -name ". " –print
-Command: find / -name " " –print
-Command: find / -name “ “ –print
-Command: find / -regex '.+[^A-Za-z0-9(+=_-/.,!@#$%^&*~:;)]' -print
-``` 
-
-
-
-Info: Look for promiscuous mode, which may indicate a sniffer 
-```
- ip link | grep PROMISC
-```
-
-
-Info: Look for unusual ARP entries 
-```
-arp –a
-```
-   
-Info: Look for cron jobs scheduled as root or any other UID 0 accoutns 
-```
-crontab –u root –l
 ```
    
 Info: Look for unusual system wide cron jobs    
@@ -554,10 +525,6 @@ file_part_ = Prefix of split file name (file_part_0,file_part_1,file_part_2..etc
 
 
 
-#Indentify all modified or accessed files 
-```
-find
-```
 
 #Display enviroment variables 
 ```
@@ -598,6 +565,29 @@ info: list last logged in users
 ```
 w
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    
 
 
