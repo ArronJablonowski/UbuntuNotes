@@ -17,6 +17,11 @@ Show ip info - requires net-utils is installed
 ifconfig 
 ```
 
+List network devices and grep for promiscuous mode, which may indicate a network sniffer 
+```
+ ip link | grep PROMISC
+```
+
 
 # NETSTAT COMMANDS
 Show network connections, protocol, IPs, ports, connection state, PID, and process name creating the connection: 
@@ -65,6 +70,7 @@ List open files that are completely unlinked
 ```
 lsof +L1
 ```
+Info: Look for processes running out of or accessing files that have been unlinked (ie. link count 0). An attacker may be hiding data in or running a backdoor from such a file 
 
 Investigate a PID in-depth 
 ```
@@ -413,27 +419,6 @@ git clone https://github.com/sleuthkit/autopsy.git
 git clone https://github.com/dafthack/DomainPasswordSpray.git
 ```        
 
-# LOGS & Locations  
-```    
-#cron logs 
-    cat /var/log/cron.log
-    cat /var/log/sudo.log 
-    cat /var/log/messages 
-```
-```
-#mail server logs 
-    cat /var/log/maillog
-```
-```
-#kernal logs 
-    cat /var/log/kern.log
-    cat /var/log/auth.log 
-```
-# Apache access and error logs directory 
-```
-la -la /var/log/httpd/
-```
-
 # One Liners, Tips & Tricks
 Info: Look in etc passwd for new accounts sorted by UID. UID less than 500 = SUSPECT. 
 ```
@@ -450,9 +435,8 @@ Command: grep :0: /etc/passwd
 
 get cpu temps - sudo apt install lm-sensors -y && sudo sensors-detect 
 ```
- sensors
+sensors
 ```
-source: cyberciti.biz/faq/how-to-check-cpu-temperature-on-ubuntu-linux/ 
 
 Info: Look for orphaned files, which could be a sign of an attacker's temp account that has been deleted 
 ```
@@ -483,7 +467,6 @@ Info: Find odd processes running as root user (UID 0)
 ps aux | grep root
 ```
    
-
 Info: Look for unusual SUID root files
 ```
 find / -uid 0 -perm 4000 -print
@@ -503,24 +486,13 @@ Command: find / -name “ “ –print
 Command: find / -regex '.+[^A-Za-z0-9(+=_-/.,!@#$%^&*~:;)]' -print
 ``` 
 
-Info: Look for processes running out of or accessing files that have been unlinked (ie. link count 0). An attacker may be hiding data in or running a backdoor from such a file 
-```
-lsof +L1
-```
+
 
 Info: Look for promiscuous mode, which may indicate a sniffer 
 ```
  ip link | grep PROMISC
 ```
 
-Info: Look for unusual TCP/UDP listeners 
-```
-netstat –nap
-```
-Info: Get more details about running processes listening on ports 
-```
-lsof –i
-```   
 
 Info: Look for unusual ARP entries 
 ```
