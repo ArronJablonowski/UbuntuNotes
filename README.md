@@ -2,8 +2,7 @@
 Notes last updated: 4.10.2024
 
 
-# NETWORK INTERFACE INFO 
-Network Interface Information   
+# NETWORK INTERFACE INFO   
 ``` 
 ip addr show
 ```
