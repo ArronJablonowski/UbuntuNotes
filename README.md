@@ -120,7 +120,7 @@ ls -la /etc/init
 ```
 
 ```
- ls -la /etc/init.conf
+ls -la /etc/init.conf
 ```
 
 ```
@@ -183,7 +183,7 @@ sudo dpkg --get-selections | grep -v deinstall
 # Searching Finding & Sorting
 
 ```
- grep
+grep
 ```
    
 ```
@@ -193,9 +193,11 @@ zgrep
 ```
 egrep
 ```
+```
 Example: egrep -ir --include=*.{docx} "jacking"
          egrep -ir --include=*.{html} "jacking"
          egrep -ir --include=*.{html} "clickjacking"
+```
 
 use 'find' to find a file on a unix system. 
 ```
