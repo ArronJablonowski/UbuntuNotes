@@ -282,7 +282,7 @@ clamscan -r --remove /media/$USER/MalwareFolder/
 clamscan -r --move=/home/$USER/MalwareFolder/
 ```
 ```
-clamscan -r --copy=/media/$USER/MalwareFolder/ --file-list=$evolutionPathsFile | tee ~/MalwareFolder/logFile.txt
+clamscan -r --copy=/media/$USER/MalwareFolder/ --file-list=./evolutionPathsFile.txt | tee ~/MalwareFolder/logFile.txt
 ```
    
 Update ClamAV
@@ -293,8 +293,10 @@ freshclam
 # UFW - FIREWALL
 https://www.digitalocean.com/community/tutorials/how-to-setup-a-firewall-with-ufw-on-an-ubuntu-and-debian-cloud-server
 ```
-sudo aptitude install ufw
+sudo apt install ufw
 sudo ufw status
+sudo ufw enable
+sudo ufw disable
 ```
 IPV6 - https://itsfoss.com/disable-ipv6-ubuntu-linux/
 
@@ -306,10 +308,10 @@ The order of precedence for SSH config is as follows:
   3. System config file (`/etc/ssh/ssh_config`)
 
 Resourses:
-   Setup - https://www.ssh.com/ssh/public-key-authentication
-   ciphers - https://infosec.mozilla.org/guidelines/openssh.html
+* Setup - https://www.ssh.com/ssh/public-key-authentication
+* ciphers - https://infosec.mozilla.org/guidelines/openssh.html
 
-* Disable password logins on server (optional)
+ # Disable password logins on server (optional)
   ```
   sudo nano /etc/ssh/sshd_config
   ```
@@ -318,21 +320,20 @@ Resourses:
 * Uncomment the second line, and, if needed, change yes to no.
 ``` PasswordAuthentication no ```
 
-Generate an SSH Key (both pub/priv).	 
+# Generate an SSH Key (both pub/priv).	 
 ```
 ssh-keygen -t ed25519 -f ~/.ssh/your-key-filename -C "your-key-comment"
 ```
-Generate an SSH Key (both pub/priv).
 ```
 ssh-keygen -f ./keyName_alg -t ecdsa -b 521
 ```
 
-add public key to user's authorized_keys file
+Add public key to user's authorized_keys file
 ```
 ssh-copy-id -i ./keyName_alg.pub User@host 
 ```
 
-add a private key to the ssh-agent 
+Add a private key to the ssh-agent 
 ```
 ssh-add ~/.ssh/path/to/privkey
 ```
