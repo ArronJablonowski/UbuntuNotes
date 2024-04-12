@@ -826,4 +826,7 @@ rsync -v -r -e "ssh pivotgw ssh" {serverip}:/home/{yourUserName}/{FileName} ~/te
 rsync -v -e "ssh pivotgw ssh" 10.16.33.254:/home/$USER/someArchive.zip ~/Documents/IR/
 ```
 
-
+# Find hosts using mDNS 
+```
+avahi-browse -a
+```
