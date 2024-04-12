@@ -19,15 +19,15 @@ ifconfig
 
 
 # NETSTAT COMMANDS
-Show network connections, protocol, IPs, ports, connection state, PID, and process name creating the connection 
+Show network connections, protocol, IPs, ports, connection state, PID, and process name creating the connection: 
 ```
 netstat -apnvtu
 ```
-
+Similar to above, but resolves the foreign addresses to domain names: 
 ```
 sudo netstat -tup
 ```
-
+Show numerical addresses (n), both listening and non-listening sockets (a), and include information related to networking timers. 
 ```
 netstat -nao
 ```
