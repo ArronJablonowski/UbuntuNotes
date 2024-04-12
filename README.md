@@ -19,7 +19,7 @@ ifconfig
 
 
 # NETSTAT COMMANDS
-closest to netstat-naob on windows 
+Show network connections, protocol, IPs, ports, connection state, PID, and process name creating the connection 
 ```
 netstat -apnvtu
 ```
