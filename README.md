@@ -32,7 +32,7 @@ Show numerical addresses (n), both listening and non-listening sockets (a), and 
 netstat -nao
 ```
 
-add 'c' for continuos. Add grep to watch for a connection
+add 'c' for continuos. 
 ```
 netstat -apnvtuc
 ``` 
