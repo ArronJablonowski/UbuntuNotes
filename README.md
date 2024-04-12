@@ -832,7 +832,7 @@ rsync -v -e "ssh pivotgw ssh" 10.16.33.254:/home/$USER/someArchive.zip ~/Documen
 avahi-browse -a
 ```
 
-Python webserver for file transfer 
+# Python webserver for file transfer 
 ```
 sudo python3 -m http.server 8080
 ```
