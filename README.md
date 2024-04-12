@@ -167,31 +167,28 @@ list installed apps via apt
 ```
 apt list --installed
 ```
-
-
 ```
 grep " install " /var/log/apt/history.log
 ```
-
+list installed apps via dpkg
 ```
 grep " install " /var/log/dpkg.log
 ```
-
 ```
 sudo dpkg --get-selections | grep -v deinstall
 ```
 
 
 # Searching Finding & Sorting
-
+Search for patterns in each file: 
 ```
 grep
 ```
-   
+Zgrep is able to grep through gzip archives:    
 ```
 zgrep
 ```
- 
+Regex grep (similar to grep -E):  
 ```
 egrep
 ```
