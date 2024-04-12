@@ -388,8 +388,9 @@ sysctl -a 2>/dev/null | grep disable_ipv6
 ```
 
 # Check Desktop UI
+echo the current UI
 ```
-echo $XDG_SESSION_TYPE  ## echo the current UI
+echo $XDG_SESSION_TYPE  
 ```
 ```
 sudo nano /etc/gdm3/custom.conf
