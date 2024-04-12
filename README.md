@@ -135,8 +135,7 @@ cat /etc/inittab
 ```
 
 
-#LIST CRON JOBS 
-   LIST Crons: 
+# LIST CRON JOBS 
  ```
 cat /etc/crontab
 ```
