@@ -69,6 +69,10 @@ List open files that are completely unlinked
 lsof +L1
 ```
 
+Info: Investigate a discovered PID in more depth 
+```
+lsof –p [pid]
+```
    
 # KILL PROCESSES
 Kill multi processes at once 
@@ -227,7 +231,7 @@ List the FileSystem Type of an img file. 'blkid' - will return the fs type or no
 ```
 sudo blkid -o value -s TYPE ./sda3.dd-ptcl-img
 ``` 
-Dependant: sudo apt-get install vmfs-tools -- ESXi datastores use VMware’s proprietary VMFS filesystem.
+Dependant: sudo apt-get install vmfs-tools -- ESXi datas use VMware’s proprietary VMFS filesystem.
 
 
 # MOUNT/UNMOUNT IMGAGES, DRIVES, BLOCK DEVICES
@@ -353,7 +357,7 @@ LINK: https://www.guru99.com/file-permissions.html
 
 # Lynis Audit - Security check 
 ```
-sudo lynis audit system | tee ~/lynis_output_log.txt && sudo cp /var/log/lynis.log ~/lynis.log && sudo chown ajablonow:ajablonow ~/lynis.log
+sudo lynis audit system | tee ~/lynis_output_log.txt && sudo cp /var/log/lynis.log ~/lynis.log && sudo chown $USER:$USER ~/lynis.log
 ```
 
 # System Checks
@@ -377,35 +381,19 @@ sudo nano /etc/gdm3/custom.conf
 ```
 
 
-<=================================================================================================================>
+# GIT Commands
 
+```
+git clone
+```
+   
+# GIT Packages
 
-============
-GIT Commands
-============
-Command: git clone 
-   Info: 
-
-Command: 
-   Info:    
-
-Command: 
-   Info:    
-
-Command: 
-   Info:    
-
-Command: 
-   Info:    
-
-============
-GIT Packages
-============
-        git clone https://github.com/sans-blue-team/DeepBlueCLI.git
-        git clone https://github.com/elceef/dnstwist.git
-        git clone https://github.com/decalage2/oletools.git
-        git clone https://github.com/sleuthkit/autopsy.git
-        git clone https://github.com/dafthack/DomainPasswordSpray.git
+git clone https://github.com/sans-blue-team/DeepBlueCLI.git
+git clone https://github.com/elceef/dnstwist.git
+git clone https://github.com/decalage2/oletools.git
+git clone https://github.com/sleuthkit/autopsy.git
+git clone https://github.com/dafthack/DomainPasswordSpray.git
         
 
 # LOGS & Locations  
@@ -424,144 +412,204 @@ GIT Packages
     cat /var/log/kern.log
     cat /var/log/auth.log 
 ```
-#apache access and error logs directory 
+# Apache access and error logs directory 
+```
 la -la /var/log/httpd/
+```
 
-<=================================================================================================================>
-    
-    =========================
-    One Liners, Tips & Tricks
-    =========================
-
-Command: sort /etc/passwd -nk3 -t: | less
-	 cat /etc/passwd | sort -nk3 -t:
-   Info: Look in etc passwd for new accounts sorted by UID. UID less than 500 = SUSPECT. 
-
+# One Liners, Tips & Tricks
+Info: Look in etc passwd for new accounts sorted by UID. UID less than 500 = SUSPECT. 
+```
+sort /etc/passwd -nk3 -t: | less
+cat /etc/passwd | sort -nk3 -t:
+```
+   
+Info: Find any unexpected UID 0 accounts (root)
+```
 Command: getent passwd | egrep ':0+:'
 Command: egrep ':0+:' /etc/passwd
 Command: grep :0: /etc/passwd
-   Info: Find any unexpected UID 0 accounts (root)
+```   
 
-Command: sensors 
-   info: get cpu temps - sudo apt install lm-sensors -y && sudo sensors-detect 
- source: cyberciti.biz/faq/how-to-check-cpu-temperature-on-ubuntu-linux/ 
+get cpu temps - sudo apt install lm-sensors -y && sudo sensors-detect 
+```
+ sensors
+```
+source: cyberciti.biz/faq/how-to-check-cpu-temperature-on-ubuntu-linux/ 
 
-Command: find / -nouser -print
-    Info: Look for orphaned files, which could be a sign of an attacker's temp account that has been deleted 
+Info: Look for orphaned files, which could be a sign of an attacker's temp account that has been deleted 
+```
+find / -nouser -print
+```
+   
+```
+nmcli device show <interFaceName> | grep IP4.DNS
+```
 
-Command: nmcli device show <interFaceName> | grep IP4.DNS
+Info: Look at uptime and load average 
+```
+uptime
+```
+   
+Info: Look for excesive Memory use 
+```
+free
+```
+   
+Info: Look at disk usage (minus snaps)
+```
+df -h | grep -vi snap
+```
+   
+Info: Find odd processes running as root user (UID 0)
+```
+ps aux | grep root
+```
+   
 
-Command: uptime
-   Info: Look at uptime and load average 
-
-Command: free
-   Info: Look for excesive Memory use 
-
-Command: df -h | grep -vi snap 
-   Info: Look at disk usage (minus snaps)
-
-Command: ps aux | grep root 
-   Info: Find odd processes running as root user (UID 0)
-
-Command: lsof –p [pid]
-   Info: Investigate a discovered PID in more depth 
-
-Command: find / -uid 0 -perm 4000 -print
-   Info: Look for unusual SUID root files 
-
-Command: find / -size +10000k –print
-   Info: Look for unusually large files (gt 10MB)
-
+Info: Look for unusual SUID root files
+```
+find / -uid 0 -perm 4000 -print
+```
+    
+Info: Look for unusually large files (gt 10MB)
+```
+find / -size +10000k –print
+```
+   
+Info: Look for files with dots and spaces, used to camouflage files
+```
 Command: find / -name ".. " –print
 Command: find / -name ". " –print
 Command: find / -name " " –print
 Command: find / -name “ “ –print
 Command: find / -regex '.+[^A-Za-z0-9(+=_-/.,!@#$%^&*~:;)]' -print
-   Info: Look for files with dots and spaces, used to camouflage files 
+``` 
 
-Command: lsof +L1
-   Info: Look for processes running out of or accessing files that have been unlinked (ie. link count 0). 
-         An attacker may be hiding data in or running a backdoor from such a file 
+Info: Look for processes running out of or accessing files that have been unlinked (ie. link count 0). An attacker may be hiding data in or running a backdoor from such a file 
+```
+lsof +L1
+```
 
-Command: ip link | grep PROMISC
-   Info: Look for promiscuous mode, which may indicate a sniffer 
+Info: Look for promiscuous mode, which may indicate a sniffer 
+```
+ ip link | grep PROMISC
+```
 
-Command: netstat –nap
-   Info: Look for unusual TCP/UDP listeners 
+Info: Look for unusual TCP/UDP listeners 
+```
+netstat –nap
+```
+Info: Get more details about running processes listening on ports 
+```
+lsof –i
+```   
 
-Command: lsof –i
-   Info: Get more details about running processes listening on ports 
+Info: Look for unusual ARP entries 
+```
+arp –a
+```
+   
+Info: Look for cron jobs scheduled as root or any other UID 0 accoutns 
+```
+crontab –u root –l
+```
+   
+Info: Look for unusual system wide cron jobs    
+```
+cat /etc/crontab
+ls /etc/cron.*
+```
 
-Command: arp –a
-   Info: Look for unusual ARP entries 
+Info: List last login for each user 
+```
+lastlog
+```
+   
+Info: user logins and system reboots. File may be truncated weekly or monthly
+Look for rolled logs too (ll /var/log/ | grep -i wtmp).
+```
+last -f /var/log/wtmp
+```
+   
+Info: Failed Logins. May not be kept due to risk of password disclosure. 
+```
+lastb -f /var/log/btmp | less
+```
 
-Command: crontab –u root –l
-   Info: Look for cron jobs scheduled as root or any other UID 0 accoutns 
-
-Command: cat /etc/crontab
-Command: ls /etc/cron.*
-   Info: Look for unusual system wide cron jobs    
-
-Command: lastlog 
-   Info: List last login for each user 
-         [read with lastlog]
-
-Command: Command: last -f /var/log/wtmp
-   Info: user logins and system reboots. File may be truncated weekly or monthly
-         Look for rolled logs too (ll /var/log/ | grep -i wtmp).
-
-Command: lastb -f /var/log/btmp | less 
-   Info: Failed Logins. May not be kept due to risk of password disclosure. 
-
+Info: SSH auth failures are logged here /var/log/auth.log
+Link: https://serverfault.com/questions/130482/how-to-check-sshd-log
+```
 Command: grep 'sshd' /var/log/auth.log
 Command: tail -n 500 /var/log/auth.log | grep 'sshd'   (last 500 logs)
 Command: tail -f -n 500 /var/log/auth.log | grep 'sshd'   (live view)
-   Info: SSH auth failures are logged here /var/log/auth.log
-   Link: https://serverfault.com/questions/130482/how-to-check-sshd-log
+ ```
 
-Command: ausearch -if /path/to/evidence/var/log/audit.log -c useradd
-   Info: Find users that have been added to they system 
-
-Command: cat bigFile.csv | parallel --header : --pipe -N999 'cat >split_file_{#}.csv'
-   Info: Split large CSV file into many with 999 rows, and keep the headers. 
+Info: Find users that have been added to they system 
+```
+ ausearch -if /path/to/evidence/var/log/audit.log -c useradd
+```
    
-Command: split -d -l 10000 file_name.csv file_part_
+Info: Split large CSV file into many with 999 rows, and keep the headers. 
+```
+cat bigFile.csv | parallel --header : --pipe -N999 'cat >split_file_{#}.csv'
+```
+
+Split large CSV file into many   
+```
+split -d -l 10000 file_name.csv file_part_
+```
 file_name = Name of the file you want to split.
 10000 = Number of rows each split file would contain
 file_part_ = Prefix of split file name (file_part_0,file_part_1,file_part_2..etc goes on)
 
 
 
-    ============--
-    OTHER COMMANDS 
-    ============--
-
 #Indentify all modified or accessed files 
-find  
+```
+find
+```
 
 #Display enviroment variables 
+```
 env
+```
 
 #Display alias
-alias 
+```
+alias
+```
 
 #Check For Hardware Events
+```
 dmesg | grep hd
+```
 
 #DiskUsage
-df -ah
+```
+df -ahT
+```
 
 # Virtual Memory Statistics  
+```
 vmstat
+```
 
 #list last logged in users
+```
 lastlog
+```
 
 #list last logged in users
+```
 last
+```
 
-Command: w    
-   info: list last logged in users
+info: list last logged in users
+```
+w
+```
+   
 
 
 SORT
@@ -645,7 +693,7 @@ and send data received from the network to STDOUT
 ===========================
 Push a file from client to listener:
    $ nc –l -p [LocalPort] > [outfile]
-Listen on [LocalPort], store results in [outfile]
+Listen on [LocalPort],  results in [outfile]
    $ nc –w3 [TargetIPaddr] [port] <[infile]
 Push [infile] to [TargetIPaddr] on [port]
 Pull file from listener back to client:
@@ -750,71 +798,76 @@ List Symbolic LInks in a dir
 
 
 
-============================
-Commands through a Jump host
-============================
+# Commands through a Jump host
+
 
 -- DNS LOGS -- 
-Command: ssh storegw ssh {StoreServerIP} sudo zgrep query /var/log/dnsmasq.* > ~/Documents/DNS_queries.txt 
-	 ssh storegw ssh 10.40.48.254 sudo zgrep query /var/log/dnsmasq.*  | cut -d ':' -f5 | cut -d ' ' -f3 | sort | uniq -c | sort -nr > ~/Documents/DNS_Logs_Stacked.txt
-	 ssh storegw ssh 10.40.48.254 sudo zgrep query /var/log/dnsmasq.* | grep -i -E "chatvisor|screenconnect|teamview|anydesk|example.com" | sort > ~/Documents/DomainLookup_report.txt
-   Info: 
-Example: 
-
+```
+ssh pivotgw ssh {serverip} sudo zgrep query /var/log/dnsmasq.* > ~/Documents/DNS_queries.txt 
+ssh pivotgw ssh 10.40.48.254 sudo zgrep query /var/log/dnsmasq.*  | cut -d ':' -f5 | cut -d ' ' -f3 | sort | uniq -c | sort -nr > ~/Documents/DNS_Logs_Stacked.txt
+ssh pivotgw ssh 10.40.48.254 sudo zgrep query /var/log/dnsmasq.* | grep -i -E "chatvisor|screenconnect|teamview|anydesk|example.com" | sort > ~/Documents/DomainLookup_report.txt
+```
 
 -- NETWORK CONNECTIONS -- 
-Command: ssh storegw ssh {storeserverip} sudo lsof -i | grep ESTABLISHED > ~/Documents/lsof_i.log
-	 ssh storegw ssh {storeserverip} sudo lsof -i -n -P
-	 ssh storegw ssh {storeserverip} sudo netstat -apnvtu | grep -i estab
+```
+ssh pivotgw ssh {serverip} sudo lsof -i | grep ESTABLISHED > ~/Documents/lsof_i.log
+ssh pivotgw ssh {serverip} sudo lsof -i -n -P
+ssh pivotgw ssh {serverip} sudo netstat -apnvtu | grep -i estab
+```
 	 
 -- HOST FILE -- 
-Command: ssh storegw ssh {storeserverip} cat /etc/hosts
-   Info: 
-Example: 
+```
+ssh pivotgw ssh {serverip} cat /etc/hosts
+```
 
 -- RUNNING PROCESSES -- 
-Command: ssh storegw ssh {storeServerIP} sudo ps aux
-   Info: 
-Example: 
+```
+ssh pivotgw ssh {serverip} sudo ps aux
+```
 
 -- BASH HISTORY FOR ALL USERS (not through Jump Host) -- 
-	ssh storegw
-	ssh {storeserverip}
-	sudo su
-	getent passwd | cut -d : -f 6 | sed 's:$:/.bash_history:' | xargs -d '\n' grep -s -H -e "$pattern"
+```
+sudo su
+getent passwd | cut -d : -f 6 | sed 's:$:/.bash_history:' | xargs -d '\n' grep -s -H -e "$pattern"
+```
  
 -- LIST USERS -- 
-Command: ssh storegw ssh {storeserverip}  cat /etc/passwd | grep -v "nologin" | grep -v "false"| grep -v "sync"
-	 ssh storegw ssh {storeserverip} w
-   Info: 
-Example: 
+```
+ssh pivotgw ssh {serverip}  cat /etc/passwd | grep -v "nologin" | grep -v "false"| grep -v "sync"
+ssh pivotgw ssh {serverip} w
+```
+
 
 -- MOST RECENT LOGINS -- 
-Command: ssh storegw ssh {storeserverip} last
-   Info: 
-Example: 
-
+```
+ssh pivotgw ssh {serverip} last
+```
 	
 -- List init* & rc.d -- 
-inittab: ssh storegw ssh {storeserverip} sudo ls -la /etc/inittab
-init.d: ssh storegw ssh {storeserverip} sudo ls -la /etc/init.d
-rc.d: ssh storegw ssh {storeserverip} sudo ls -la /etc/rc.d
-init.conf: ssh storegw ssh {storeserverip} sudo ls -la /etc/init.conf
-init: ssh storegw ssh {storeserverip} sudo ls -la /etc/init
+inittab: 
+```
+ssh pivotgw ssh {serverip} sudo ls -la /etc/inittab
+init.d: ssh pivotgw ssh {serverip} sudo ls -la /etc/init.d
+rc.d: ssh pivotgw ssh {serverip} sudo ls -la /etc/rc.d
+init.conf: ssh pivotgw ssh {serverip} sudo ls -la /etc/init.conf
+init: ssh pivotgw ssh {serverip} sudo ls -la /etc/init
+```
 
 -- AUTH LOGS -- 
-ssh storegw ssh {storeserverip} sudo cat /var/log/auth.log
-ssh storegw ssh {storeserverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -d ':' -f4 | cut -d' ' -f5 | sort | uniq -c | sort -nr
-ssh storegw ssh {storeserverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -d ':' -f4 | cut -d' ' -f7 | sort | uniq -c | sort -nr
-ssh storegw ssh {storeserverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -d ':' -f4 | cut -d' ' -f5,7 | sort | uniq -c | sort -nr
-ssh storegw ssh {storeserverip} sudo cat /var/log/auth.log | grep -E 'sshd.*Failed|Invalid|failure'
+ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log
+ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -d ':' -f4 | cut -d' ' -f5 | sort | uniq -c | sort -nr
+ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -d ':' -f4 | cut -d' ' -f7 | sort | uniq -c | sort -nr
+ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -d ':' -f4 | cut -d' ' -f5,7 | sort | uniq -c | sort -nr
+ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -E 'sshd.*Failed|Invalid|failure'
 
 -- List the top 25 largest files on the server -- 
-ssh storegw ssh {storeserverip} sudo find /home -printf '%s\\\ %p\\\\n'| sort -nr | head -25
+```
+ssh pivotgw ssh {serverip} sudo find /home -printf '%s\\\ %p\\\\n'| sort -nr | head -25
+```
 
--- rsync files from store server to local host: 
+-- rsync files from server to local host: 
 
--On the store server:
+-On the server:
 sudo su
 cp /file/location/filename /home/{yourUsername}/
 cd /home/{yourUserName}
@@ -822,7 +875,11 @@ chown {yourUsername} {filename}
 If dealing with multiple files or a directory, zip the contents of the directory first. Then rsync it to your system. 
 
 -On Analyst Workstation: 
-rsync -v -r -e "ssh storegw ssh" {storeServerIP}:/home/{yourUserName}/{FileName} ~/temp/IR
-rsync -v -e "ssh storegw ssh" 10.16.33.254:/home/ajablonow/someArchive.zip ~/Documents/IR/
+```
+rsync -v -r -e "ssh pivotgw ssh" {serverip}:/home/{yourUserName}/{FileName} ~/temp/IR
+```
+```
+rsync -v -e "ssh pivotgw ssh" 10.16.33.254:/home/ajablonow/someArchive.zip ~/Documents/IR/
+```
 
 
