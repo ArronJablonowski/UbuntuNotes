@@ -810,6 +810,7 @@ avahi-browse -a
 ```
 
 # Python webserver for file transfer 
+python3
 ```
 python3 -m http.server 8080
 ```
