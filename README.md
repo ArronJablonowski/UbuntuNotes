@@ -479,6 +479,12 @@ get cpu temps - sudo apt install lm-sensors -y && sudo sensors-detect
 sensors
 ```
 
+Clone a website with Wget
+```
+wget --recursive --page-requisites --adjust-extension --span-hosts --convert-links --restrict-file-names=windows --user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:21.0) Gecko/20100101 Firefox/21.0" --domains "https://some.website.com" --no-parent "https://some.website.com" --no-check-certificate --max-redirect 0
+```
+
+
 # not sure...  
 ```
 nmcli device show <interFaceName> | grep IP4.DNS
