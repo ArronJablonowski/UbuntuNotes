@@ -455,6 +455,7 @@ echo the current UI
 ```
 echo $XDG_SESSION_TYPE  
 ```
+Switch off Wayland and use X11 - most things work better. 
 ```
 sudo nano /etc/gdm3/custom.conf
 	uncomment "#WaylandEnable=false"
