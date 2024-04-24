@@ -273,6 +273,10 @@ List Symbolic LInks in a dir
 ```
 find . -maxdepth 1 -type l -ls
 ```
+Find duplicates
+```
+find . ! -empty -type f -exec md5sum {} + | sort | uniq -w32 -dD
+```
 
 # LIST MOUNTED FILES, DRIVES, Block Devices
 List all mounted files and drives 
