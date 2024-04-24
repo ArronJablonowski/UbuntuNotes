@@ -55,7 +55,14 @@ show running process
 ```
  ps aux
 ```
-
+tree the running processes 
+```
+pstree
+```
+tree the running processes for a user 
+```
+sudo pstree -pa root
+```
 
 # List Open Files - (Handles) 
  Show list of open handles
