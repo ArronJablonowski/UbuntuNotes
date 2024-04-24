@@ -63,6 +63,11 @@ tree the running processes for a user
 ```
 sudo pstree -pa root
 ```
+save 3 iterations of the top command to a file 
+```
+top -n 3 -b > processes.txt
+```
+
 
 # List Open Files - (Handles) 
  Show list of open handles
