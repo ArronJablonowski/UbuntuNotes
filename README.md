@@ -172,8 +172,12 @@ ls -la /etc/cron.hourly/
 ```
    
 Info: Look for cron jobs scheduled as root or any other UID 0 accoutns 
+List root's cron jobs 
 ```
-crontab –u root –l
+crontab –l
+```
+```
+crontab –u {user} –l
 ```
 Info: Look for unusual system wide cron jobs    
 ```
