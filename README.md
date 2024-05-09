@@ -836,6 +836,20 @@ rsync -v -e "ssh pivotgw ssh" 10.16.33.254:/home/$USER/someArchive.zip ~/Documen
 avahi-browse -a
 ```
 
+# Change MAC Address
+1. Take the NIC down 
+```
+sudo ifconfig {eth0} down 
+```
+2. Assign new address 
+```
+sudo ifconfig {eth0} hw ether de:db:33:fc:of:f3 
+```
+3. Bing interface backuo
+```
+sudo ifconfig {eth0} up
+```
+
 # Python webserver for file transfer 
 python3
 ```
