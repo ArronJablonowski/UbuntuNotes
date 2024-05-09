@@ -845,7 +845,7 @@ sudo ifconfig {eth0} down
 ```
 sudo ifconfig {eth0} hw ether de:db:33:fc:of:f3 
 ```
-3. Bing interface backuo
+3. Bring interface backup
 ```
 sudo ifconfig {eth0} up
 ```
