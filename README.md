@@ -898,3 +898,9 @@ Add a line to the crypttab:
 sda3_crypt UUID=025c66a2-c683-42c5-b17c-322c2188fe3f none luks,discard
 ```
 Format is Name UUID none luks,discard
+
+Save the file and proceed with updating the initramfs:
+```
+update-initramfs -u
+```
+Then reboot. 
