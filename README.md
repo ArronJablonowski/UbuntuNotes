@@ -860,3 +860,41 @@ python2
 ```
 python -m SimpleHTTPServer 80
 ```
+
+# De-Crypt additional drive(s) on boot
+Run commands as root: 
+```
+sudo su 
+```
+Start by making a keyfile with a password - use dd to generate a pseudorandom one:
+```
+dd if=/dev/urandom of=/root/.keyfile bs=1024 count=4
+```
+chmod 0400 keyfile 
+```
+chmod 0400 /root/.keyfile
+```
+Find the drive: 
+```
+lsblk
+```
+sda = The drive to decrypt: 
+```
+cryptsetup -v luksAddKey /dev/sda /root/.keyfile
+```
+
+Find the UUID of the /boot partition with the following comamnd (this one doesn't require you be root):
+```
+ls -l /dev/disk/by-uuid/
+```
+
+Then edit /etc/crypttab with your favourite editor:
+```
+nano /etc/crypttab
+```
+
+Add a line to the crypttab: 
+```
+sda3_crypt UUID=025c66a2-c683-42c5-b17c-322c2188fe3f none luks,discard
+```
+Format is Name UUID none luks,discard
