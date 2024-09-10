@@ -900,6 +900,7 @@ Add a line to the crypttab file with the UUID of the drive to decrpt:
 sda3_crypt UUID=025c66a2-c683-42c6-b17c-322c2188fe3f /root/.keyfile luks,discard
 ```
  * <em>Format is Name UUID /root/.keyfile luks,discard</em>
+ * <em>UUID={The UUID of additional drive to decrypt on boot} 
 
 Save the file and proceed with updating the initramfs:
 ```
