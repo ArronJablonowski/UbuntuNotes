@@ -907,3 +907,11 @@ Save the file and proceed with updating the initramfs:
 update-initramfs -u
 ```
 Then reboot. 
+
+
+# Hardern SSH - require keypair auth (ensure keypairs are already setup) 
+``` sudo sed -i -E 's/#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config ```
+( optional - keypair auth will still work without PublicKeyAuthentication set to "yes" ) 
+``` sudo sed -i -E 's/#?PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config ```
+
+``` service ssh restart ```
