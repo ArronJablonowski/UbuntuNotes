@@ -913,6 +913,7 @@ Then reboot.
 ```  sudo sed -i -E 's/#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config ```
 
 ( optional - keypair auth will still work without PublicKeyAuthentication set to "yes" ) 
+
 ``` sudo sed -i -E 's/#?PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config ```
 
 ``` service ssh restart ```
