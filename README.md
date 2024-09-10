@@ -863,6 +863,7 @@ python -m SimpleHTTPServer 80
 
 # De-Crypt additional drive(s) on boot
 https://askubuntu.com/questions/996155/how-do-i-automatically-decrypt-an-encrypted-filesystem-on-the-next-reboot
+
 Run commands as root: 
 ```
 sudo su 
