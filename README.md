@@ -874,7 +874,7 @@ chmod 0400 keyfile
 ```
 chmod 0400 /root/.keyfile
 ```
-Find the drive: 
+Find the drive to decrypt on boot: 
 ```
 lsblk
 ```
