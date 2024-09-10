@@ -878,7 +878,7 @@ Find the drive to decrypt on boot:
 ```
 lsblk
 ```
-sda = The drive to decrypt: 
+sda = The drive to decrypt at boot (ensure boot drive in encrypted to protect keyfile): 
 ```
 cryptsetup -v luksAddKey /dev/sda /root/.keyfile
 ```
