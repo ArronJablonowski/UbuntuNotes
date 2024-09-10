@@ -895,7 +895,7 @@ nano /etc/crypttab
 
 Add a line to the crypttab file with the UUID of the drive to decrpt: 
 ```
-sda3_crypt UUID=025c66a2-c683-42c5-b17c-322c2188fe3f none luks,discard
+sda3_crypt UUID=025c66a2-c683-42c6-b17c-322c2188fe3f /root/.keyfile luks,discard
 ```
  * <em>Format is Name UUID none luks,discard</em>
 
