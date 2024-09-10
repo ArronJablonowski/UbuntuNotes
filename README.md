@@ -917,3 +917,13 @@ Then reboot.
 ``` sudo sed -i -E 's/#?PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config ```
 
 ``` service ssh restart ```
+# Build Pihole & PiVPN 
+
+``` curl -sSL https://install.pi-hole.net | bash ```
+
+``` curl -L https://install.pivpn.io | bash ```
+
+# Disable WiFi & Blutooth on Pi
+``` sudo rfkill block bluetooth ```
+
+``` sudo rfkill block wifi ```
