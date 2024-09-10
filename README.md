@@ -910,20 +910,35 @@ Then reboot.
 
 
 # Hardern SSH - require keypair auth (ensure keypairs are already setup) 
-```  sudo sed -i -E 's/#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config ```
+```  
+sudo sed -i -E 's/#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config 
+```
 
 ( optional - keypair auth will still work without PublicKeyAuthentication set to "yes" ) 
 
-``` sudo sed -i -E 's/#?PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config ```
+``` 
+sudo sed -i -E 's/#?PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config 
+```
 
-``` service ssh restart ```
+``` 
+service ssh restart 
+```
+
 # Build Pihole & PiVPN 
 
-``` curl -sSL https://install.pi-hole.net | bash ```
+``` 
+curl -sSL https://install.pi-hole.net | bash 
+```
 
-``` curl -L https://install.pivpn.io | bash ```
+``` 
+curl -L https://install.pivpn.io | bash 
+```
 
 # Disable WiFi & Blutooth on Pi
-``` sudo rfkill block bluetooth ```
+``` 
+sudo rfkill block bluetooth 
+```
 
-``` sudo rfkill block wifi ```
+``` 
+sudo rfkill block wifi 
+```
