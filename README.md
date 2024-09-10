@@ -870,7 +870,7 @@ Start by making a keyfile with a password - use dd to generate a pseudorandom on
 ```
 dd if=/dev/urandom of=/root/.keyfile bs=1024 count=4
 ```
-chmod 0400 keyfile 
+chmod 0400 keyfile - Set read permission for root and nothing for anyone else
 ```
 chmod 0400 /root/.keyfile
 ```
