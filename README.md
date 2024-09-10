@@ -883,7 +883,7 @@ sda = The drive to decrypt at boot (ensure boot drive in encrypted to protect ke
 cryptsetup -v luksAddKey /dev/sda /root/.keyfile
 ```
 
-Find the UUID of drive/partition with the following comamnd:
+Find the UUID of drive/partition to decrypt on boot with the following comamnd:
 ```
 ls -l /dev/disk/by-uuid/
 ```
@@ -893,7 +893,7 @@ Then edit /etc/crypttab with editor:
 nano /etc/crypttab
 ```
 
-Add a line to the crypttab: 
+Add a line to the crypttab file with the UUID of the drive to decrpt: 
 ```
 sda3_crypt UUID=025c66a2-c683-42c5-b17c-322c2188fe3f none luks,discard
 ```
