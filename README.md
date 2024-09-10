@@ -883,12 +883,12 @@ sda = The drive to decrypt:
 cryptsetup -v luksAddKey /dev/sda /root/.keyfile
 ```
 
-Find the UUID of the /boot partition with the following comamnd (this one doesn't require you be root):
+Find the UUID of drive/partition with the following comamnd:
 ```
 ls -l /dev/disk/by-uuid/
 ```
 
-Then edit /etc/crypttab with your favourite editor:
+Then edit /etc/crypttab with editor:
 ```
 nano /etc/crypttab
 ```
