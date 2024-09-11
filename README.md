@@ -913,7 +913,7 @@ Then reboot.
 
 
 
-To remove it again (as I wanted to):
+To remove it again:
 
 First confirm that there are only two keys on the system (the original one and the new keyfile):
 ```
