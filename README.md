@@ -911,6 +911,43 @@ Then reboot.
 ( more info - https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup ) 
 
 
+
+
+To remove it again (as I wanted to):
+
+First confirm that there are only two keys on the system (the original one and the new keyfile):
+```
+cryptsetup luksDump /dev/sda3 | grep BLED
+```
+This will generate an output similar to this:
+```
+Key Slot 0: ENABLED
+Key Slot 1: ENABLED
+Key Slot 2: DISABLED
+Key Slot 3: DISABLED
+Key Slot 4: DISABLED
+Key Slot 5: DISABLED
+Key Slot 6: DISABLED
+Key Slot 7: DISABLED
+```
+To delete the key in key slot 1 (the keyfile) run:
+```
+cryptsetup luksKillSlot /dev/sda3 1
+```
+You're then prompted to type the encryption password (the original one, not the one in the keyfile).
+
+Then delete the actual keyfile:
+```
+rm /root/.keyfile
+```
+Update initramfs again:
+```
+update-initramfs -u
+```
+Now when you reboot you will be prompted for a password again. You're done.
+
+
+
 # Hardern SSH - require keypair auth (ensure keypairs are already setup) 
 ```  
 sudo sed -i -E 's/#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config 
