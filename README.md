@@ -907,8 +907,9 @@ Save the file and proceed with updating the initramfs:
 update-initramfs -u
 ```
 Then reboot. 
- * <em> To Auto Mount decrypted drive, use the GUI application 'disks'. Then select the partition to mount and click the gears icon > Edit Mounts > Un-select "User Defaults", then give the mount a name.</em>
+ * <em> To Auto Mount decrypted drive, use the GUI application 'disks'. Then select the partition to mount and click the gears icon > Edit Mounts > Un-select "User Defaults", then give the mount a name and modify the mount point to desired location. ie. replace the UUID with a more meaningful name of your choosing.</em>
 ( more info - https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup ) 
+
 
 # Hardern SSH - require keypair auth (ensure keypairs are already setup) 
 ```  
