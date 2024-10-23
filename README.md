@@ -281,6 +281,10 @@ Find duplicates
 ```
 find . ! -empty -type f -exec md5sum {} + | sort | uniq -w32 -dD
 ```
+Find multiple extensions and copy those files into a directory
+```
+find . -regex '.*\.\(mp3\|mp4\|mov\)$' -exec cp {} /home/username/temp/myfolder \;
+```
 
 # LIST MOUNTED FILES, DRIVES, Block Devices
 List all mounted files and drives 
