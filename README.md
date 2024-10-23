@@ -811,6 +811,7 @@ ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -
 ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -d ':' -f4 | cut -d' ' -f7 | sort | uniq -c | sort -nr
 ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -i Accepted | cut -d ':' -f4 | cut -d' ' -f5,7 | sort | uniq -c | sort -nr
 ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep -E 'sshd.*Failed|Invalid|failure'
+ssh pivotgw ssh {serverip} sudo cat /var/log/auth.log | grep COMMAND
 ```
 -- List the top 25 largest files on the server -- 
 ```
